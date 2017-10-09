@@ -1,7 +1,7 @@
 'use latest'
 
 const geolib = require('geolib')
-const fromEvent = require('graphcool-lib').fromEvent
+const { fromEvent } = require('graphcool-lib')
 
 function getPlaces(api, limit) {
   return api.request(`
@@ -17,7 +17,7 @@ function getPlaces(api, limit) {
         }
       }
     }`)
-    .then(placesQueryResult => {      
+    .then((placesQueryResult) => {
       return placesQueryResult.allPlaces
     })
     .catch(error => {
@@ -49,20 +49,20 @@ module.exports = function (event) {
         let p = {};
         let id = d.id;
         p[id] = o;
-        return p 
+        return p
       })
       return formatted
     })
-  	.then(formatted => {
-    	return Object.assign(...formatted)
-  	})
+    .then(formatted => {
+      return Object.assign(...formatted)
+    })
     .then(flattened => {
       return geolib.orderByDistance({lat: lat, lng: lng}, flattened)
-  	})
+    })
     .then(ordered => {
       const geoResults = ordered.map(x => Object.assign(x, allPlaces.find(y => y.id == x.key)));
-    	return { data: geoResults }
-  	})
+      return { data: geoResults }
+    })
     .catch(error => {
       console.log(error)
       return { error: `An unexpected error occured` }
