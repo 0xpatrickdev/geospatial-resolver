@@ -1,11 +1,13 @@
 type PlacesPayload {
-  geoResults: Json!
+  id: ID!,
+  name: String,
+  geoloc: Json,
+  distance: Float
 }
 
 extend type Query {
   placesByDistance(
-    limit: Int!
     lat: Float!,
     lng: Float!
-  ): PlacesPayload
+  ): [PlacesPayload!]!
 }
