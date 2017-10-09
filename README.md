@@ -1,6 +1,6 @@
-# Geospatial Resolver  🌎
+# Geospatial Resolver  🌎 📡
 
-A geospatial resolver function for Graphcool.
+A geospatial query resolver for Graphcool.
 
 ## About
 
