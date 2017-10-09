@@ -14,7 +14,7 @@ query {
   # replace __LNG__ and __LNG__
   # with something like 51.515 and 7.453619
   placesByDistance(lat: "__LAT__", lng: "__LNG__") {
-    token
+    geoResults
   }
 }
 ```
