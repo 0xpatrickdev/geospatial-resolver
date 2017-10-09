@@ -1,4 +1,5 @@
 const geolib = require('geolib')
+const fs = require('fs')
 
 const startImport = async () => {
   // import the list of places
@@ -24,9 +25,21 @@ const startImport = async () => {
   // merge original data with distance results
   const fullResults = await results.map(x => Object.assign(x, places.find(y => y.id == x.key)));
   
+  // write the results to json file 
+  fs.writeFile('./sample-results.json', JSON.stringify(fullResults, null, '\t'), (err) => {
+    if (err) throw err;
+  })
+
   return fullResults
 };
 
 startImport()
   .catch(err => console.log('Error while importing data:', err))
-  .then(res => console.log('Results:', res))
+  .then((res) => console.log(`Sorted ${res.length} places.`))
+  .then(() => console.log(`
+View the results here:
+
+  file://${__dirname}/sample-results.json
+
+(cmd + double click file link to open)
+  `))

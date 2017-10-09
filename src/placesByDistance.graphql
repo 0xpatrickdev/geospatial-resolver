@@ -3,7 +3,7 @@ type PlacesPayload {
 }
 
 extend type Query {
-  getPlacesByDistance(
+  placesByDistance(
     limit: Int!
     lat: Float!,
     lng: Float!

@@ -1,3 +1,5 @@
+'use latest'
+
 const geolib = require('geolib')
 const fromEvent = require('graphcool-lib').fromEvent
 
@@ -15,8 +17,7 @@ function getPlaces(api, limit) {
         }
       }
     }`)
-    .then(placesQueryResult => {
-      console.log(placesQueryResult)
+    .then(placesQueryResult => {      
       return placesQueryResult.allPlaces
     })
     .catch(error => {
@@ -31,7 +32,6 @@ module.exports = function (event) {
     return { error: 'Email Authentication not configured correctly.'}
   }
 
-  const limit = event.data.limit
   const lat = event.data.lat
   const lng = event.data.lng
   const graphcool = fromEvent(event)
@@ -54,7 +54,6 @@ module.exports = function (event) {
       return formatted
     })
   	.then(formatted => {
-      console.log("FORMATTED", formatted)
     	return Object.assign(...formatted)
   	})
     .then(flattened => {
@@ -62,7 +61,7 @@ module.exports = function (event) {
   	})
     .then(ordered => {
       const geoResults = ordered.map(x => Object.assign(x, allPlaces.find(y => y.id == x.key)));
-    	return { data: { geoResults } }
+    	return { data: geoResults }
   	})
     .catch(error => {
       console.log(error)
