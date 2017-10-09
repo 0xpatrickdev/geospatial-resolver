@@ -1,0 +1,11 @@
+type PlacesPayload {
+  geoResults: Json!
+}
+
+extend type Query {
+  getPlacesByDistance(
+    limit: Int!
+    lat: Float!,
+    lng: Float!
+  ): PlacesPayload
+}

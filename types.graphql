@@ -1,0 +1,25 @@
+type Place implements Node {
+  # required system field:
+  id: ID! @isUnique
+
+  # optional system fields. uncomment if you need them:
+  # createdAt: DateTime!
+  # updatedAt: DateTime!
+
+  name: String!
+  geoloc: Json!
+  location: Location @relation(name: "LocationOnPlace")
+}
+
+type Location implements Node {
+  # required system field:
+  id: ID! @isUnique
+
+  # optional system fields. uncomment if you need them:
+  # createdAt: DateTime!
+  # updatedAt: DateTime!
+
+  lat: Float!
+  lng: Float!
+  venue: Place @relation(name: "LocationOnPlace")
+}
